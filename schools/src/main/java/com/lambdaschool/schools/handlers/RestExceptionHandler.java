@@ -44,6 +44,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
     }
 
+
     // handles response for request to route that doesn't exist
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(
@@ -78,7 +79,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         errorDetail.setTimestamp(new Date());
         errorDetail.setStatus(status.value());
         errorDetail.setTitle("Rest Internal Exception");
-        errorDetail.setDetail(ex.getMessage());
+        errorDetail.setDetail("Found an issue with School: " + ex.getMessage());
         errorDetail.setDeveloperMessage(ex.getClass().getName());
 
         // generate list of errors using helperFunctions

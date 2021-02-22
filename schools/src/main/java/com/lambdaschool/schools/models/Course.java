@@ -3,6 +3,10 @@ package com.lambdaschool.schools.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +29,8 @@ public class Course
     /**
      * Name (String) of this Course. Cannot be null and must be unique
      */
+    @NotNull(message = "Course name is required")
+    @Size(min = 2, max = 50, message = "Course name length must be between 2 and 50 characters")
     @Column(nullable = true,
         unique = true)
     private String coursename;
