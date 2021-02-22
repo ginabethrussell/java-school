@@ -55,7 +55,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         ErrorDetail errorDetail = new ErrorDetail();
         errorDetail.setTimestamp(new Date());
         errorDetail.setTitle("Rest Endpoint Not Valid");
-        errorDetail.setDetail("Found an issue with School: No handler found for " + ex.getHttpMethod() + ex.getRequestURL());
+        errorDetail.setDetail("Found an issue with School: No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL());
         errorDetail.setStatus(status.value());
         errorDetail.setDeveloperMessage(ex.getClass().getName());
         errorDetail.setErrors(helperFunctions.getConstraintViolation(ex));
