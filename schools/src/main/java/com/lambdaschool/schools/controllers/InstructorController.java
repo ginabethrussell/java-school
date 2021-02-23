@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/instructors")
@@ -29,9 +31,19 @@ public class InstructorController
     @Autowired
     private InstructorService instructorService;
 
+
+    @GetMapping(value = "/instructors")
+    public ResponseEntity<?> listAllInstructors()
+    {
+        List<Instructor> instructorList = new ArrayList<>();
+        instructorList = instructorService.findAll();
+
+        return new ResponseEntity<>(instructorList,
+            HttpStatus.OK);
+    }
     private RestTemplate restTemplate = new RestTemplate();
     @GetMapping(value = "/instructor/{instructorid}/advice")
-    public ResponseEntity<?> getInstructorAdvice(@PathVariable long instructorid)
+    public ResponseEntity<?> addAdvice(@PathVariable long instructorid)
     {
         Instructor instructor = instructorService.findInstructorById(instructorid);
 
@@ -56,10 +68,8 @@ public class InstructorController
         // an embedded. So the response will look more like our clients are used to!
         SlipData advice = responseEntity.getBody().getSlip();
 
-        InstructorAdvice instructorAdvice = new InstructorAdvice();
-        instructorAdvice.setInstructor(instructor);
-        instructorAdvice.setAdvice(advice);
-        return new ResponseEntity<>(instructorAdvice,
+        instructor.setAdvice(advice.getAdvice());
+        return new ResponseEntity<>(instructor,
             HttpStatus.OK);
 
     }

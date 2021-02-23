@@ -1,6 +1,7 @@
 package com.lambdaschool.schools.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * The entity allowing interaction with the instructors table
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "instructors")
 public class Instructor
@@ -44,6 +46,8 @@ public class Instructor
 
     @Transient
     private String advice;
+
+
 
     /**
      * Default Constructor used primarily by the JPA.
@@ -121,5 +125,15 @@ public class Instructor
     public void setCourses(List<Course> courses)
     {
         this.courses = courses;
+    }
+
+    public String getAdvice()
+    {
+        return advice;
+    }
+
+    public void setAdvice(String advice)
+    {
+        this.advice = advice;
     }
 }
