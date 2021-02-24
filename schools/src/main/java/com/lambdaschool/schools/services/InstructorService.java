@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface InstructorService
 {
-    Instructor findInstructorById(long id);
+    Instructor addAdvice(long id);
+
+    Instructor addAdvice(long id, String searchTerm);
 
     List<Instructor> findAll();
 }

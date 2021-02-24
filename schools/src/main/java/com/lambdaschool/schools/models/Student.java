@@ -26,7 +26,7 @@ public class Student
     /**
      * The name student (String)
      */
-    @NotNull(message = "Student name is required")
+    @NotNull(message = "Student name is required") // Json <-> Java
     @Size(min = 2, max = 30, message = "Student name length must be between 2 and 30 characters")
     @Column(nullable = false,
         unique = true)

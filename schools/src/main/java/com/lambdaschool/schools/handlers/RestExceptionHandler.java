@@ -1,5 +1,6 @@
 package com.lambdaschool.schools.handlers;
 
+import com.lambdaschool.schools.exceptions.ResourceFoundException;
 import com.lambdaschool.schools.exceptions.ResourceNotFoundException;
 import com.lambdaschool.schools.models.ErrorDetail;
 import com.lambdaschool.schools.services.HelperFunctions;
@@ -44,6 +45,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ResourceFoundException.class)
+    public ResponseEntity<?> handleResourceFoundException(ResourceFoundException rfe)
+    {
+        ErrorDetail errorDetail = new ErrorDetail();
+        errorDetail.setTimestamp(new Date());
+        errorDetail.setTitle("Unexpected Resource");
+        errorDetail.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorDetail.setDetail(rfe.getMessage());
+        errorDetail.setDeveloperMessage(rfe.getClass().getName());
+        errorDetail.setErrors(helperFunctions.getConstraintViolation(rfe));
+
+        return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
+    }
 
     // handles response for request to route that doesn't exist
     @Override

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * The entity allowing interaction with the instructors table
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @Entity
 @Table(name = "instructors")
 public class Instructor
@@ -30,7 +30,7 @@ public class Instructor
      */
     @NotNull(message = "Instructor name is required")
     @Size(min = 2, max = 30, message = "Instructor name length must be between 2 and 30 characters")
-    @Column(nullable = false)
+    @Column(nullable = false) // Java <-> Hibernate
     private String name;
 
     /**
@@ -45,6 +45,7 @@ public class Instructor
     private List<Course> courses = new ArrayList<>();
 
     @Transient
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String advice;
 
 

@@ -1,6 +1,5 @@
 package com.lambdaschool.schools.services;
 
-import com.lambdaschool.schools.models.SlipReturnData;
 import com.lambdaschool.schools.models.ValidationError;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
